@@ -1,7 +1,7 @@
-website name: Plant Tracker
-live site link: https://plant-tracker-client.web.app/
+1.website name: Plant Tracker
+2. live site link: https://plant-tracker-client.web.app/
 
-Features :
+3. Features :
 🌱 Plant Database Management: Easily add, view, and manage a collection of indoor and outdoor plants with details like watering frequency, care level, and health status.
 
 📊 Smart Watering Schedule: Automatically track the last and next watering dates to help users stay consistent and avoid overwatering or underwatering.
@@ -12,4 +12,6 @@ Features :
 
 🔐 User Authentication & Data Sync: Secure user login and real-time data updates using Firebase, ensuring personalized plant tracking across devices.
 
-npm packages: react-router,toastify,sweetalert,swiper etc
+4.npm packages: react-router,toastify,sweetalert,swiper etc
+
+5.here i use firebase
