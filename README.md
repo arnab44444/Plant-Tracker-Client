@@ -11,3 +11,5 @@ Features :
 🔍 Search & Sort Functionality: Quickly find plants by category or care level with dynamic filtering and sorting for better organization.
 
 🔐 User Authentication & Data Sync: Secure user login and real-time data updates using Firebase, ensuring personalized plant tracking across devices.
+
+npm packages: react-router,toastify,sweetalert,swiper etc
