@@ -30,7 +30,7 @@
 
 ## 🌐 Live Site
 
-🔗 [Visit the Live Site]([https://your-live-site-url-here.com](https://plant-tracker-client.web.app/))
+🔗 [Visit the Live Site](https://plant-tracker-client.web.app/)
 
 
 
