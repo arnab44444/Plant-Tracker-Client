@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useLoaderData } from "react-router";
 import MyPlantCard from "../components/MyPlantCard";
@@ -7,13 +6,19 @@ import { Link } from "react-router";
 
 const MyPlants = () => {
   const initialPlants = useLoaderData();
+  console.log("Initial Plants:", initialPlants);
   const [plants, setPlants] = useState(initialPlants);
+
+
+  console.log("My Plants:", plants);
 
   
 
   return (
     <div>
-      <Navbar />
+      
+
+      <h2 className="text-2xl text-green-500 font-bold text-center my-5">This is My Plants Section</h2>
 
       {plants.length === 0 ? (
         <div className="text-center py-20">
@@ -28,8 +33,10 @@ const MyPlants = () => {
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {plants.map((plant) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-16">
+
+        
+          {plants?.map((plant) => (
             <MyPlantCard
               key={plant._id}
               plants={plants}

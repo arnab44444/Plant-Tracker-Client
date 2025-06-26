@@ -11,6 +11,11 @@ import PrivateRoute from "../provider/PrivateRoute";
 import PlantDetails from "../pages/PlantDetails";
 import UpdatePlant from "../components/UpdatePlant";
 import ErrorPage from "../pages/ErrorPage";
+import DashboardLayout from "../layouts/DashboardLayout";
+import DashboardHome from "../pages/DashboardHome";
+import AboutUs from "../pages/AboutUs";
+import ContactUs from "../pages/ContactUs";
+import Blog from "../pages/Blog";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +29,7 @@ const router = createBrowserRouter([
 
         // new plants sectioner jnno
 
-        loader: () => fetch("https://plant-tracker-server.vercel.app/new_plants"),
+        loader: () => fetch("http://localhost:3000/new_plants"),
         hydrateFallbackElement: (
           <span className="loading loading-bars loading-xl"></span>
         ),
@@ -50,8 +55,56 @@ const router = createBrowserRouter([
   },
 
   {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true, // Default route for /dashboard
+        element: <DashboardHome></DashboardHome>,
+      },
+      {
+        path: "add-plants",
+        element: <AddPlants></AddPlants>,
+      },
+
+      // {
+      //   path: "my-plants/:email",
+      //   loader: async ({ params }) => {
+      //     const res = await fetch(
+      //       `http://localhost:3000/plants/${params.email}`
+      //     );
+      //     if (!res.ok) throw new Error("Failed to load plants");
+      //     return res.json();
+      //   },
+      //   hydrateFallbackElement: (
+      //     <span className="loading loading-bars loading-xl"></span>
+      //   ),
+      //   element: (
+      //     <PrivateRoute>
+      //       <MyPlants />
+      //     </PrivateRoute>
+      //   ),
+      // },
+
+      {
+        path: "my-plants/:email",
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/plants/${params.email}`),
+        hydrateFallbackElement: (
+          <span className="loading loading-bars loading-xl"></span>
+        ),
+        element: <MyPlants />,
+      },
+    ],
+  },
+
+  {
     path: "/all-plants",
-    loader: () => fetch("https://plant-tracker-server.vercel.app/plants"),
+    loader: () => fetch("http://localhost:3000/plants"),
     hydrateFallbackElement: (
       <span className="loading loading-bars loading-xl"></span>
     ),
@@ -59,47 +112,60 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/add-plants",
-    element: (
-      <PrivateRoute>
-        <AddPlants></AddPlants>
-      </PrivateRoute>
-    ),
+    path: "aboutUs",
+    element: <AboutUs></AboutUs>,
+  },
+
+  {
+    path: "contactUs",
+    element: <ContactUs></ContactUs>,
+  },
+
+  {
+    path: "blog",
+    element: <Blog></Blog>,
   },
 
   // {
-  //     path: '/my-plants/:email',
-  //     loader: () => fetch('https://plant-tracker-server.vercel.app/plants'),
-  //     element: <PrivateRoute><MyPlants></MyPlants></PrivateRoute>
+  //   path: "/add-plants",
+  //   element: (
+  //     <PrivateRoute>
+  //       <AddPlants></AddPlants>
+  //     </PrivateRoute>
+  //   ),
+  // },
+
+  // {
+  //   path: "/my-plants/:email",
+  //   loader: ({ params }) =>
+  //     fetch(`http://localhost:3000/plants/${params.email}`),
+  //   hydrateFallbackElement: (
+  //     <span className="loading loading-bars loading-xl"></span>
+  //   ),
+  //   element: (
+  //     <PrivateRoute>
+  //       <MyPlants />
+  //     </PrivateRoute>
+  //   ),
   // },
 
   {
-    path: "/my-plants/:email",
-    loader: ({ params }) =>
-      fetch(`https://plant-tracker-server.vercel.app/plants/${params.email}`),
+    path: "/plant-details/:id",
+    loader: () => fetch("http://localhost:3000/plants"),
     hydrateFallbackElement: (
       <span className="loading loading-bars loading-xl"></span>
     ),
     element: (
       <PrivateRoute>
-        <MyPlants />
+        <PlantDetails></PlantDetails>
       </PrivateRoute>
     ),
-  },
-
-  {
-    path: "/plant-details/:id",
-    loader: () => fetch("https://plant-tracker-server.vercel.app/plants"),
-    hydrateFallbackElement: (
-      <span className="loading loading-bars loading-xl"></span>
-    ),
-    element: <PrivateRoute><PlantDetails></PlantDetails></PrivateRoute>,
   },
 
   {
     path: "/updatePlant/:id",
     loader: ({ params }) =>
-      fetch(`https://plant-tracker-server.vercel.app/updatePlant/${params.id}`),
+      fetch(`http://localhost:3000/updatePlant/${params.id}`),
     hydrateFallbackElement: (
       <span className="loading loading-bars loading-xl"></span>
     ),
@@ -114,5 +180,6 @@ const router = createBrowserRouter([
 
 export default router;
 
+// http://localhost:3000
 
 // Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass

@@ -1,12 +1,16 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+import React, { use } from "react";
 import Footer from "../components/Footer";
 import Swal from "sweetalert2";
+import { AuthContext } from "../provider/AuthProvider";
 
 const AddPlants = () => {
+
+      const {user} = use(AuthContext);
+
   const handleAddPlants = (e) => {
     e.preventDefault();
     const form = e.target;
+
 
     const formData = new FormData(form);
 
@@ -15,7 +19,7 @@ const AddPlants = () => {
 
     // send coffee data to the db
 
-    fetch("https://plant-tracker-server.vercel.app/plants", {
+    fetch("http://localhost:3000/plants", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -42,11 +46,11 @@ const AddPlants = () => {
 
   return (
     <div>
-      <Navbar></Navbar>
+      
       <div className="p-4 bg-gray-300">
         <div className="p-12 text-center space-y-4">
           <h1 className="text-3xl font-bold text-green-500">Add PLants</h1>
-          <p>
+          <p className="text-gray-700">
             Plants are essential for life as they produce the oxygen we need to
             breathe. They also provide us with food, medicine, and shelter,
             supporting both humans and animals. Moreover, plants help maintain
@@ -151,6 +155,7 @@ const AddPlants = () => {
                 required
                 className="input w-full"
                 placeholder="Email"
+              value={user?.email || ""} // Use optional chaining to avoid errors if user is null
               />
             </fieldset>
 
@@ -162,6 +167,7 @@ const AddPlants = () => {
                 required
                 className="input w-full"
                 placeholder="User Name"
+              value={user?.displayName || ""}
               />
             </fieldset>
           </div>
@@ -184,7 +190,7 @@ const AddPlants = () => {
           />
         </form>
       </div>
-      );
+      
       <Footer></Footer>
     </div>
   );

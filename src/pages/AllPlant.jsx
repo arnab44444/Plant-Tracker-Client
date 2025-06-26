@@ -8,59 +8,108 @@ const AllPlant = () => {
   const loadedPlants = useLoaderData();
   const [plants, setPlants] = useState([]);
   const [sortOption, setSortOption] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [viewMode, setViewMode] = useState("card"); // for large devices only
 
   useEffect(() => {
-    if (sortOption === "") {
-      setPlants(loadedPlants);
-    } 
-    else {
-      const carePriority = { easy: 0, moderate: 1, hard: 2 ,difficult:3};
-      const sorted = [...loadedPlants].sort((a, b) => {
-        return carePriority[a.care_level] - carePriority[b.care_level];
-      });
-      setPlants(sorted);
+    let filteredPlants = [...loadedPlants];
+
+    // Search
+    if (searchText.trim() !== "") {
+      filteredPlants = filteredPlants.filter((plant) =>
+        plant.plant_name.toLowerCase().includes(searchText.toLowerCase())
+      );
     }
-  }, [loadedPlants, sortOption]);
+
+    // Sort
+    if (sortOption === "care_level") {
+      const carePriority = { easy: 0, moderate: 1, hard: 2, difficult: 3 };
+      filteredPlants.sort(
+        (a, b) => carePriority[a.care_level] - carePriority[b.care_level]
+      );
+    }
+
+    setPlants(filteredPlants);
+  }, [loadedPlants, sortOption, searchText]);
 
   return (
     <div>
       <Navbar />
 
-      {/* Sort Dropdown */}
-      <div className="flex justify-center px-4 mt-6">
-        <label className="mr-2 font-semibold">Sort by:</label>
-        <select
-          value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
-          className="select select-bordered w-40"
-        >
-          <option value="">Default</option>
-          <option value="care_level">Care Level</option>
-        </select>
+      {/* Filter Bar */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4 px-6 mt-8">
+        {/* Search Centered */}
+        <div className="w-full md:w-1/2 flex justify-center">
+          <input
+            type="text"
+            placeholder="Search by plant name..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="input input-bordered w-full max-w-md"
+          />
+        </div>
+
+        {/* Sort & View Toggle */}
+        <div className="flex items-center gap-4">
+          <div>
+            <label className="mr-2 font-semibold">Sort by:</label>
+            <select
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className="select select-bordered w-40"
+            >
+              <option value="">Default</option>
+              <option value="care_level">Care Level</option>
+            </select>
+          </div>
+
+          {/* View Toggle - Only for large screens */}
+          <div className="hidden md:flex items-center gap-2">
+            <label className="font-semibold">View:</label>
+            <button
+              className={`btn btn-sm ${viewMode === "table" ? "btn-primary" : "btn-outline"}`}
+              onClick={() => setViewMode("table")}
+            >
+              Table
+            </button>
+            <button
+              className={`btn btn-sm ${viewMode === "card" ? "btn-primary" : "btn-outline"}`}
+              onClick={() => setViewMode("card")}
+            >
+              Card
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Table Layout for Medium and Large Screens */}
-      <div className="hidden sm:block px-4 mt-10 ">
-        <table className="table ">
-          <thead className="">
-            <tr>
-              <th>Picture</th>
-              <th>Plant Name</th>
-              <th>Category</th>
-              <th>Care Level</th>
-              <th>Watering Frequency</th>
-            </tr>
-          </thead>
-          <tbody>
-            {plants.map((plant) => (
-              <PlantCard key={plant._id} plant={plant} />
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {/* Table Layout - Only on large screens + if table view selected */}
+      {viewMode === "table" && (
+        <div className="hidden sm:block px-4 mt-10">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Picture</th>
+                <th>Plant Name</th>
+                <th>Category</th>
+                <th>Care Level</th>
+                <th>Watering Frequency</th>
+              </tr>
+            </thead>
+            <tbody>
+              {plants.map((plant) => (
+                <PlantCard key={plant._id} plant={plant} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
-      {/* Card Layout for Small Screens */}
-      <div className="sm:hidden px-4 mt-10 space-y-5">
+      {/* Card Layout - Always for small device, or if selected on large */}
+      <div
+        className={`px-4 mt-10 gap-5 ${
+          viewMode === "card" ? "grid sm:grid-cols-3 lg:grid-cols-4" : ""
+        } ${viewMode !== "card" ? "sm:hidden" : ""}`}
+      >
         {plants.map((plant) => (
           <div
             key={plant._id}
@@ -78,15 +127,13 @@ const AllPlant = () => {
               </div>
             </div>
             <p>
-              <span className="font-semibold">Watering Frequency:</span>{" "}
+              <span className="font-normal">Watering Frequency:</span>{" "}
               {plant.frequency}
             </p>
-
             <p>
               <span className="font-semibold">Care Level:</span>{" "}
               {plant.care_level}
             </p>
-
             <div className="mt-3">
               <a href={`/plant-details/${plant._id}`}>
                 <button className="btn btn-primary w-full">View Details</button>
@@ -102,7 +149,3 @@ const AllPlant = () => {
 };
 
 export default AllPlant;
-
-
-// 14
-// 15

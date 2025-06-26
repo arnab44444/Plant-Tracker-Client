@@ -29,7 +29,7 @@ const PlantDetails = () => {
         <main className='w-11/12 gap-5 mx-auto '>
 
                 <section className=''>
-                    <h2 className='my-10 text-2xl text-center font-bold text-green-500'>Plant Details</h2>
+                    <h2 className='my-3 text-2xl text-center font-bold text-green-500'>Plant Details</h2>
                     {/* <NewsDetailsCard news={news}></NewsDetailsCard> */}
                     <PlantDetailsCard plant={plant}></PlantDetailsCard>
                 </section>

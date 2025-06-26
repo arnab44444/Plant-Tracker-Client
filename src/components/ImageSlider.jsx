@@ -8,13 +8,13 @@ import "swiper/css/pagination";
 
 const ImageSlider = () => {
   const images = [
-    "https://i.ibb.co/SXSmY9yz/fpcxvlp1bp171.jpg",
-    "https://i.ibb.co/3yBP0B4T/dacaa1c78843c6e0f94220d2cf7f42b7.jpg",
-    "https://i.ibb.co/nq1fVpCN/square-houseplant-tips.jpg",
+    "https://i.ibb.co/8gKzQ1rh/IMG-20250627-012513-734.jpg",
+    "https://i.ibb.co/PZs6jJ5L/IMG-20250627-012510-596.jpg",
+    "https://i.ibb.co/LXvKt50m/IMG-20250627-012507-596.jpg",
   ];
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-2 py-4">
+    <div className="w-full max-w-screen-xl mx-auto px-2 ">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={10}
@@ -24,13 +24,15 @@ const ImageSlider = () => {
         autoplay={{ delay: 3000 }}
         loop
         className="rounded-lg"
+        style={{ height: "65vh", maxHeight: "700px" }}
       >
         {images.map((url, idx) => (
           <SwiperSlide key={idx}>
             <img
               src={url}
               alt={`slide-${idx}`}
-              className="w-full h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px]  rounded-lg"
+              className="w-full h-full object-cover rounded-lg"
+              style={{ minHeight: "400px" }}
             />
           </SwiperSlide>
         ))}

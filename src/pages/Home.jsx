@@ -5,6 +5,7 @@ import Gallery from "../components/Gallery";
 import FunPlantFacts from "../components/FunPlantFacts";
 import AboutWebsite from "../components/AboutWebsite";
 import PlantCareTips from "../components/PlantCareTips";
+import HappyGardeners from "../components/HappyGardeners";
 
 const Home = () => {
   const plants = useLoaderData();
@@ -41,6 +42,10 @@ const Home = () => {
         <FunPlantFacts />
       </section>
 
+      {/* Happy Clients Section */}
+        <section className="mb-16">
+        <HappyGardeners></HappyGardeners>
+      </section>
       
 
       {/* About Website Section */}

@@ -35,7 +35,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between navbar p-0 bg-green-300 border-b px-8 md:px-12 lg:px-16 xl:px-24 shadow-sm">
+    <div className="sticky top-0 z-50 flex justify-between navbar p-0 bg-green-700 border-b px-8 md:px-12 lg:px-16 xl:px-24 shadow-sm">
       <div className="navbar-start">
         <div className="dropdown">
           <div
@@ -67,7 +67,9 @@ const Navbar = () => {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  isActive ? "text-indigo-500" : ""
+                  isActive
+                    ? " text-indigo-300 dark:text-green-400"
+                    : " text-gray-600 dark:text-gray-300"
                 }
               >
                 Home
@@ -77,40 +79,85 @@ const Navbar = () => {
               <NavLink
                 to="/all-plants"
                 className={({ isActive }) =>
-                  isActive ? "text-indigo-500" : ""
+                  isActive
+                    ? " text-indigo-300 dark:text-green-400"
+                    : " text-gray-600 dark:text-gray-300"
                 }
               >
                 All Plants
               </NavLink>
             </li>
+
             <li>
               <NavLink
-                to="/add-plants"
+                to="/aboutUs"
                 className={({ isActive }) =>
-                  isActive ? "text-indigo-500" : ""
+                  isActive
+                    ? " text-indigo-300 dark:text-green-400"
+                    : " text-gray-600 dark:text-gray-300"
                 }
               >
-                Add Plants
+                About Us
               </NavLink>
             </li>
+
             <li>
               <NavLink
-                to={`/my-plants/${user?.email}`}
+                to="/contactUs"
                 className={({ isActive }) =>
-                  isActive ? "text-indigo-500" : ""
+                  isActive
+                    ? " text-indigo-300 dark:text-green-400"
+                    : " text-gray-600 dark:text-gray-300"
                 }
               >
-                My Plants
+                Contact Us
               </NavLink>
             </li>
+
+            <li>
+              <NavLink
+                to="/blog"
+                className={({ isActive }) =>
+                  isActive
+                    ? " text-indigo-300 dark:text-green-400"
+                    : " text-gray-600 dark:text-gray-300"
+                }
+              >
+                Blog
+              </NavLink>
+            </li>
+
+            {user && (
+              <>
+                <li>
+                  <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) =>
+                      isActive
+                        ? " text-indigo-300 dark:text-green-400"
+                        : " text-gray-600 dark:text-gray-300"
+                    }
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
-        <div className="flex gap-2 items-center">
-          <img
-            src="https://i.postimg.cc/FFCdWY6S/green-eco-garden-plant-by-marcololstudio-brandcrowd.png"
-            className="h-10"
-          />
+        <div className="flex items-center gap-2">
+          {/* Leaf Icon or Logo */}
+          {/* <img
+            src="https://cdn-icons-png.flaticon.com/512/2907/2907513.png" // replace with your logo if needed
+            alt="GreenNest Logo"
+            className="h-10 w-10"
+          /> */}
+
+          {/* Site Title */}
+          <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-500 via-lime-400 to-green-600 bg-clip-text text-transparent tracking-tight">
+            GreenNest
+          </h2>
         </div>
       </div>
 
@@ -119,7 +166,11 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/"
-              className={({ isActive }) => (isActive ? "text-indigo-500" : "")}
+              className={({ isActive }) =>
+                isActive
+                  ? " text-indigo-300 dark:text-green-400"
+                  : " text-gray-600 dark:text-gray-300"
+              }
             >
               Home
             </NavLink>
@@ -127,27 +178,71 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/all-plants"
-              className={({ isActive }) => (isActive ? "text-indigo-500" : "")}
+              className={({ isActive }) =>
+                isActive
+                  ? " text-indigo-300 dark:text-green-400"
+                  : " text-gray-600 dark:text-gray-300"
+              }
             >
               All Plants
             </NavLink>
           </li>
+
           <li>
             <NavLink
-              to="/add-plants"
-              className={({ isActive }) => (isActive ? "text-indigo-500" : "")}
+              to="/aboutUs"
+              className={({ isActive }) =>
+                isActive
+                  ? " text-indigo-300 dark:text-green-400"
+                  : " text-gray-600 dark:text-gray-300"
+              }
             >
-              Add Plants
+              About Us
             </NavLink>
           </li>
+
           <li>
             <NavLink
-              to={`/my-plants/${user?.email}`}
-              className={({ isActive }) => (isActive ? "text-indigo-500" : "")}
+              to="/contactUs"
+              className={({ isActive }) =>
+                isActive
+                  ? " text-indigo-300 dark:text-green-400"
+                  : " text-gray-600 dark:text-gray-300"
+              }
             >
-              My Plants
+              Contact Us
             </NavLink>
           </li>
+
+          <li>
+            <NavLink
+              to="/blog"
+              className={({ isActive }) =>
+                isActive
+                  ? " text-indigo-300 dark:text-green-400"
+                  : " text-gray-600 dark:text-gray-300"
+              }
+            >
+              Blog
+            </NavLink>
+          </li>
+
+          {user && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    isActive
+                      ? " text-indigo-300 dark:text-green-400"
+                      : " text-gray-600 dark:text-gray-300"
+                  }
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
 

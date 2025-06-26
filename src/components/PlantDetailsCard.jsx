@@ -33,7 +33,7 @@ const PlantDetailsCard = ({ plant }) => {
           <img
             src={photo}
             alt={plant_name}
-            className="w-full h-full object-cover rounded-2xl shadow-md"
+            className="w-full h-120 object-cover rounded-2xl shadow-md"
           />
         </div>
 
@@ -50,6 +50,8 @@ const PlantDetailsCard = ({ plant }) => {
             <Info label="Last Watered" value={last_watered_data} />
             <Info label="Next Watering" value={next_watering_data} />
           </div>
+
+          {/* <button className='btn btn-secondary'>Likes : 0</button> */}
         </div>
       </div>
     </div>
