@@ -28,7 +28,7 @@ const MyPlants = () => {
           <p className="text-base-content mb-4">
             Go back to the All Plants section and add your  plants.
           </p>
-          <Link to="/add-plants">
+          <Link to="/dashboard/add-plants">
             <button className="btn btn-primary">Go to Add Plants</button>
           </Link>
         </div>

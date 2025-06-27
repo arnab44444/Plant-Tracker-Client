@@ -4,6 +4,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { toast } from "react-toastify";
 import { auth } from "../firebase.init";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -33,15 +34,13 @@ const Login = () => {
 
         // eta oi portion ta jokon see more e click korbo tokon login page theke login korar por direct
         // show more page niye jabe jodi oi tstae ta thake ar nahole home e niye jabe
-
         navigate(`${location.state ? location.state : "/"}`);
       })
-      
       .catch((error) => {
         //console.log(error.message);
         const errorCode = error.code;
         setError(errorCode);
-        toast(errorCode)
+        toast(errorCode);
       });
   };
 
@@ -51,55 +50,71 @@ const Login = () => {
         //console.log(location)
         //console.log(result.user);
         navigate(location.state || "/");
-        
       })
       .catch((error) => {
-       // console.log(error.message);
+        // console.log(error.message);
       });
   };
 
-  const handleForgetpassword = () =>{
+  const handleForgetpassword = () => {
     console.log(emailRef.current.value);
     const email = emailRef.current.value;
 
-    setError('')
+    setError("");
 
     // send password reset email
     sendPasswordResetEmail(auth, email)
-    .then(()=>{
-      toast('A password reset email is sent. Please check your email')
-    })
-    .catch(error =>{
-      setError(error.message);
-    })
-  }
+      .then(() => {
+        toast("A password reset email is sent. Please check your email");
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
 
   return (
-    <div>
-      <div className="card mx-auto mt-10 bg-base-100 w-full max-w-sm shrink-0 shadow-2xl py-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100 flex items-center justify-center px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="card w-full max-w-sm bg-white shadow-2xl border border-green-200 p-6 rounded-xl"
+      >
         <div className="card-body">
-          <h1 className="text-3xl font-bold text-center">Login now!</h1>
+          <h1 className="text-3xl font-extrabold text-center text-green-700 mb-6">
+            Login to <span className="text-green-500">GreenNest</span>
+          </h1>
 
-          <form onSubmit={handleLogin} className="fieldset">
-            <label className="label">Email</label>
-            <input
-              type="email"
-              ref={emailRef}
-              name="email"
-              className="input"
-              placeholder="Email"
-            />
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="label font-semibold text-sm text-gray-600">
+                Email
+              </label>
+              <input
+                type="email"
+                ref={emailRef}
+                name="email"
+                className="input input-bordered w-full focus:outline-green-400"
+                placeholder="Email"
+              />
+            </div>
 
-            <label className="label">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="input"
-              placeholder="Password"
-            />
+            <div>
+              <label className="label font-semibold text-sm text-gray-600">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                className="input input-bordered w-full focus:outline-green-400"
+                placeholder="Password"
+              />
+            </div>
 
-            <div onClick={handleForgetpassword}>
-              <a className="link link-hover">Forgot password?</a>
+            <div onClick={handleForgetpassword} className="text-right">
+              <a className="link link-hover text-sm text-green-600">
+                Forgot password?
+              </a>
             </div>
 
             {/* error */}
@@ -107,17 +122,18 @@ const Login = () => {
               <p className="text-xs text-red-600 text-center">{error}</p>
             )}
 
-            <button className="btn btn-neutral mt-4">Login</button>
+            <button className="btn btn-success w-full">Login</button>
 
             {/* Google */}
             <button
               onClick={handleGoogleLogin}
-              className="btn bg-white text-black border-[#e5e5e5]"
+              type="button"
+              className="btn w-full bg-white text-gray-800 border border-gray-300 hover:shadow-md"
             >
               <svg
                 aria-label="Google logo"
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
               >
@@ -141,18 +157,18 @@ const Login = () => {
                   ></path>
                 </g>
               </svg>
-              Login with Google
+              <span className="ml-2">Login with Google</span>
             </button>
 
             <p className="font-semibold text-center pt-5">
               Don't have an account? Please{" "}
               <Link className="text-blue-600" to="/auth/register">
                 Register
-              </Link>{" "}
+              </Link>
             </p>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

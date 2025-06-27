@@ -1,5 +1,4 @@
-// components/ImageSlider.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -13,8 +12,27 @@ const ImageSlider = () => {
     "https://i.ibb.co/LXvKt50m/IMG-20250627-012507-596.jpg",
   ];
 
+  const [sliderHeight, setSliderHeight] = useState("65vh");
+
+  useEffect(() => {
+    const updateHeight = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setSliderHeight("35vh");
+      } else if (width < 1024) {
+        setSliderHeight("50vh");
+      } else {
+        setSliderHeight("65vh");
+      }
+    };
+
+    updateHeight(); // set initially
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-2 ">
+    <div className="w-full max-w-screen-xl mx-auto px-2">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={10}
@@ -24,7 +42,7 @@ const ImageSlider = () => {
         autoplay={{ delay: 3000 }}
         loop
         className="rounded-lg"
-        style={{ height: "65vh", maxHeight: "700px" }}
+        style={{ height: sliderHeight, maxHeight: "700px" }}
       >
         {images.map((url, idx) => (
           <SwiperSlide key={idx}>

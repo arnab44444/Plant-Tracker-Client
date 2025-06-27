@@ -16,6 +16,7 @@ import DashboardHome from "../pages/DashboardHome";
 import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
 import Blog from "../pages/Blog";
+import UpdateProfile from "../components/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
 
         // new plants sectioner jnno
 
-        loader: () => fetch("http://localhost:3000/new_plants"),
+        loader: () => fetch("https://plant-tracker-server.vercel.app/new_plants"),
         hydrateFallbackElement: (
           <span className="loading loading-bars loading-xl"></span>
         ),
@@ -70,12 +71,16 @@ const router = createBrowserRouter([
         path: "add-plants",
         element: <AddPlants></AddPlants>,
       },
+      {
+        path:'update-profile',
+        element: <UpdateProfile></UpdateProfile>,
+      },
 
       // {
       //   path: "my-plants/:email",
       //   loader: async ({ params }) => {
       //     const res = await fetch(
-      //       `http://localhost:3000/plants/${params.email}`
+      //       `https://plant-tracker-server.vercel.app/plants/${params.email}`
       //     );
       //     if (!res.ok) throw new Error("Failed to load plants");
       //     return res.json();
@@ -93,7 +98,7 @@ const router = createBrowserRouter([
       {
         path: "my-plants/:email",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/plants/${params.email}`),
+          fetch(`https://plant-tracker-server.vercel.app/plants/${params.email}`),
         hydrateFallbackElement: (
           <span className="loading loading-bars loading-xl"></span>
         ),
@@ -104,7 +109,7 @@ const router = createBrowserRouter([
 
   {
     path: "/all-plants",
-    loader: () => fetch("http://localhost:3000/plants"),
+    loader: () => fetch("https://plant-tracker-server.vercel.app/plants"),
     hydrateFallbackElement: (
       <span className="loading loading-bars loading-xl"></span>
     ),
@@ -138,7 +143,7 @@ const router = createBrowserRouter([
   // {
   //   path: "/my-plants/:email",
   //   loader: ({ params }) =>
-  //     fetch(`http://localhost:3000/plants/${params.email}`),
+  //     fetch(`https://plant-tracker-server.vercel.app/plants/${params.email}`),
   //   hydrateFallbackElement: (
   //     <span className="loading loading-bars loading-xl"></span>
   //   ),
@@ -151,7 +156,7 @@ const router = createBrowserRouter([
 
   {
     path: "/plant-details/:id",
-    loader: () => fetch("http://localhost:3000/plants"),
+    loader: () => fetch("https://plant-tracker-server.vercel.app/plants"),
     hydrateFallbackElement: (
       <span className="loading loading-bars loading-xl"></span>
     ),
@@ -165,7 +170,7 @@ const router = createBrowserRouter([
   {
     path: "/updatePlant/:id",
     loader: ({ params }) =>
-      fetch(`http://localhost:3000/updatePlant/${params.id}`),
+      fetch(`https://plant-tracker-server.vercel.app/updatePlant/${params.id}`),
     hydrateFallbackElement: (
       <span className="loading loading-bars loading-xl"></span>
     ),
@@ -180,6 +185,6 @@ const router = createBrowserRouter([
 
 export default router;
 
-// http://localhost:3000
+// https://plant-tracker-server.vercel.app
 
 // Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass

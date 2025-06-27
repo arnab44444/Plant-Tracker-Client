@@ -4,45 +4,44 @@ import { NavLink } from "react-router";
 const Footer = () => {
   return (
     <footer className="bg-green-700 px-8 py-6 mt-16 rounded-t-lg shadow-lg">
-      {/* Flex container: Left: Name, Right: Nav + Social */}
-      <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-        {/* Left side: Website name */}
+      {/* Top Flex Row */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+        {/* Left: Logo/Name */}
         <div className="text-white text-2xl font-extrabold select-none tracking-wide">
           GreenNest
         </div>
 
-        {/* Right side: Navigation and Social */}
-        <div className="footer grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:w-auto">
-          {/* Navigation Links */}
-          <nav>
-            <h6 className="footer-title text-white mb-2 font-semibold tracking-wide">
-              Navigation
-            </h6>
-            <ul className="space-y-1 text-sm">
-              {[
-                { to: "/", label: "Home" },
-                { to: "/all-plants", label: "All Plants" },
-                { to: "/aboutUs", label: "About Us" },
-                { to: "/contactUs", label: "Contact Us" },
-                { to: "/blog", label: "Blog" },
-              ].map(({ to, label }) => (
-                <li key={to}>
-                  <NavLink
-                    to={to}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-indigo-300 font-semibold"
-                        : "link link-hover text-white hover:text-indigo-400"
-                    }
-                  >
-                    {label}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        {/* Center: Navigation */}
+        <div className="text-center">
+          <h6 className="text-white mb-2 font-semibold tracking-wide">
+            Navigation
+          </h6>
+          <ul className="flex flex-wrap justify-center gap-4 text-sm">
+            {[
+              { to: "/", label: "Home" },
+              { to: "/all-plants", label: "All Plants" },
+              { to: "/aboutUs", label: "About Us" },
+              { to: "/contactUs", label: "Contact Us" },
+              { to: "/blog", label: "Blog" },
+            ].map(({ to, label }) => (
+              <li key={to}>
+                <NavLink
+                  to={to}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-indigo-300 font-semibold"
+                      : "text-white hover:text-indigo-400 transition-colors"
+                  }
+                >
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          {/* Social Media */}
+        {/* Right: Social Media */}
+        {/* Social Media */}
           <nav>
             <h6 className="footer-title text-white mb-2 font-semibold tracking-wide">
               Social
@@ -95,7 +94,6 @@ const Footer = () => {
               </a>
             </div>
           </nav>
-        </div>
       </div>
 
       {/* Bottom Line */}

@@ -27,7 +27,7 @@ const PlantCareTips = () => {
   ];
 
   return (
-    <section className="my-12 px-4 max-w-6xl mx-auto">
+    <section className="my-12 px-4 max-w-7xl mx-auto">
       <h2 className="text-3xl font-bold text-center text-green-500 mb-6">Plant Care Tips</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {tips.map((tip, index) => (

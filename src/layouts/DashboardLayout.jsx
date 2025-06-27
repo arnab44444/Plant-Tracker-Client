@@ -1,38 +1,36 @@
 import React, { useContext } from "react";
-import { NavLink, Outlet } from "react-router";
-import {
-  FaHome,
-  FaBox,
-  FaHistory,
-  FaMapMarkedAlt,
-  FaUserEdit,
-} from "react-icons/fa";
+import { Link, NavLink, Outlet, useNavigate } from "react-router";
+import { FaHome, FaUserEdit, FaSignOutAlt, FaSeedling } from "react-icons/fa";
 import { AuthContext } from "../provider/AuthProvider";
-import Navbar from "../components/Navbar";
 
 const DashboardLayout = () => {
-  const { user } = useContext(AuthContext);
+  const { user, signOutUser, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  // Active link style helper
   const activeClass = "bg-indigo-100 text-indigo-700 font-semibold rounded-md";
 
-  return (
-    <div className="drawer  lg:drawer-open min-h-screen">
-      {/* Drawer toggle checkbox */}
-      <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
-      
-      {/* Main content area */}
-      <div className="drawer-content flex flex-col">
-        {/* Top Navbar */}
-        <Navbar />
+  const handleLogout = async () => {
+    signOutUser()
+      .then(() => {
+        console.log("sign out successful");
+        setUser(null);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
-        {/* Mobile navbar for drawer toggle */}
-        <div className="navbar bg-green-500  lg:hidden shadow-md">
+  return (
+    <div className="drawer lg:drawer-open min-h-screen">
+      <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+
+      <div className="drawer-content flex flex-col">
+        {/* Mobile Navbar */}
+        <div className="navbar bg-green-500 lg:hidden shadow-md">
           <div className="flex-none">
             <label
               htmlFor="dashboard-drawer"
               className="btn btn-square btn-ghost"
-              aria-label="Open sidebar"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -49,107 +47,91 @@ const DashboardLayout = () => {
               </svg>
             </label>
           </div>
-          <div className="flex-1 px-2 text-xl font-bold">Dashboard</div>
+          <div className="flex-1 px-2 text-xl font-bold text-white">
+            Dashboard
+          </div>
         </div>
 
-        {/* Render nested routes */}
+        {/* Outlet Content */}
         <main className="p-6 bg-base-100 min-h-[calc(100vh-64px)]">
           <Outlet />
         </main>
       </div>
 
       {/* Sidebar */}
-      <div className="drawer-side bg-green-500 border-r border-gray-300">
+      <div className="drawer-side">
         <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
 
-        <nav className="menu p-4 w-72 text-base-content flex flex-col gap-3">
-          <div className="mb-6 px-4">
-            <h2 className="text-2xl font-bold text-green-800">Green Nest</h2>
-            <p className="text-sm text-gray-500 mt-1">
-              Logged in as <span className="font-semibold">{user?.displayName}</span>
-            </p>
+        <div className="menu p-4 w-72 max-w-xs bg-green-800 text-base-content border-r border-gray-300 flex flex-col justify-between h-full">
+          <div>
+            <div className="mb-6 px-2">
+              <Link to="/">
+                <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-500 via-lime-400 to-green-600 bg-clip-text text-transparent tracking-tight">GreenNest</h2>
+              </Link>
+              <p className="text-sm text-gray-200 mt-1">
+                Logged in as{" "}
+                <span className="font-semibold">{user?.displayName}</span>
+              </p>
+            </div>
+
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-2 hover:bg-indigo-50 hover:text-black rounded-md ${
+                  isActive ? activeClass : ""
+                }`
+              }
+            >
+              <FaHome /> Home
+            </NavLink>
+
+            <NavLink
+              to="/dashboard/add-plants"
+              className={({ isActive }) =>
+                `px-4 py-2 rounded-md flex items-center gap-3 hover:bg-indigo-50 hover:text-black ${
+                  isActive ? activeClass : ""
+                }`
+              }
+            >
+              <FaSeedling /> Add Plants
+            </NavLink>
+
+            <NavLink
+              to={`/dashboard/my-plants/${user?.email}`}
+              className={({ isActive }) =>
+                `px-4 py-2 rounded-md flex items-center gap-3 hover:bg-indigo-50 hover:text-black ${
+                  isActive ? activeClass : ""
+                }`
+              }
+            >
+              My Plants
+            </NavLink>
           </div>
 
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2 hover:bg-indigo-50 hover:text-black rounded-md ${
-                isActive ? activeClass : ""
-              }`
-            }
-          >
-            <FaHome /> Home
-          </NavLink>
+          {/* Bottom Buttons */}
+          <div className="space-y-2 mt-6">
+            <NavLink
+              to="/dashboard/update-profile"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-2 w-full rounded-md font-semibold transition-all duration-200
+      ${
+        isActive
+          ? "bg-indigo-100 text-indigo-700"
+          : "bg-indigo-50 text-black hover:bg-indigo-100"
+      }`
+              }
+            >
+              <FaUserEdit /> Update Profile
+            </NavLink>
 
-          <NavLink
-            to="/dashboard/add-plants"
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md flex items-center gap-3 hover:bg-indigo-50 hover:text-black ${
-                isActive ? activeClass : ""
-              }`
-            }
-          >
-            Add Plants
-          </NavLink>
-
-          <NavLink
-            to={`/dashboard/my-plants/${user?.email}`}
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md flex items-center gap-3 hover:bg-indigo-50 hover:text-black ${
-                isActive ? activeClass : ""
-              }`
-            }
-          >
-            My Plants
-          </NavLink>
-
-          {/* Uncomment & customize below links when needed */}
-          {/* 
-          <NavLink
-            to="/dashboard/myParcels"
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md flex items-center gap-3 hover:bg-indigo-50 ${
-                isActive ? activeClass : ""
-              }`
-            }
-          >
-            <FaBox /> My Parcels
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/paymentHistory"
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md flex items-center gap-3 hover:bg-indigo-50 ${
-                isActive ? activeClass : ""
-              }`
-            }
-          >
-            <FaHistory /> Payment History
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/track"
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md flex items-center gap-3 hover:bg-indigo-50 ${
-                isActive ? activeClass : ""
-              }`
-            }
-          >
-            <FaMapMarkedAlt /> Track a Package
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/profile"
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md flex items-center gap-3 hover:bg-indigo-50 ${
-                isActive ? activeClass : ""
-              }`
-            }
-          >
-            <FaUserEdit /> Update Profile
-          </NavLink> 
-          */}
-        </nav>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3 px-4 py-2 w-full bg-red-100 text-red-700 font-semibold rounded-md hover:bg-red-200 transition-all duration-200"
+            >
+              <FaSignOutAlt /> Logout
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

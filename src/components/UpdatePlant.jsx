@@ -40,7 +40,7 @@ const UpdatePlant = () => {
         next_watering_data : next_watering_data
     }
 
-    fetch(`http://localhost:3000/plant/${data?._id}`, {
+    fetch(`https://plant-tracker-server.vercel.app/plant/${data?._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const UpdatePlant = () => {
 
     // // send  update in db
 
-    // fetch(`http://localhost:3000/plants/${_id}`,{
+    // fetch(`https://plant-tracker-server.vercel.app/plants/${_id}`,{
     //     method : 'PUT',
     //     headers: {
     //         'content-type' : 'application/json'
