@@ -14,7 +14,7 @@ const Home = () => {
   
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 md:px-6 lg:px-8">
+    <div className="max-w-scree-xl mx-auto px-4 md:px-6 lg:px-8">
       {/* Header */}
       <h1 className="text-center font-bold text-2xl md:text-3xl lg:text-4xl mt-6 mb-10 text-green-500">
         New Plants

@@ -17,6 +17,7 @@ import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
 import Blog from "../pages/Blog";
 import UpdateProfile from "../components/UpdateProfile";
+import AllPlantDash from "../pages/AllPlantDash";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
 
         // new plants sectioner jnno
 
-        loader: () => fetch("https://plant-tracker-server.vercel.app/new_plants"),
+        loader: () =>
+          fetch("https://plant-tracker-server.vercel.app/new_plants"),
         hydrateFallbackElement: (
           <span className="loading loading-bars loading-xl"></span>
         ),
@@ -72,37 +74,29 @@ const router = createBrowserRouter([
         element: <AddPlants></AddPlants>,
       },
       {
-        path:'update-profile',
+        path: "update-profile",
         element: <UpdateProfile></UpdateProfile>,
       },
-
-      // {
-      //   path: "my-plants/:email",
-      //   loader: async ({ params }) => {
-      //     const res = await fetch(
-      //       `https://plant-tracker-server.vercel.app/plants/${params.email}`
-      //     );
-      //     if (!res.ok) throw new Error("Failed to load plants");
-      //     return res.json();
-      //   },
-      //   hydrateFallbackElement: (
-      //     <span className="loading loading-bars loading-xl"></span>
-      //   ),
-      //   element: (
-      //     <PrivateRoute>
-      //       <MyPlants />
-      //     </PrivateRoute>
-      //   ),
-      // },
 
       {
         path: "my-plants/:email",
         loader: ({ params }) =>
-          fetch(`https://plant-tracker-server.vercel.app/plants/${params.email}`),
+          fetch(
+            `https://plant-tracker-server.vercel.app/plants/${params.email}`
+          ),
         hydrateFallbackElement: (
           <span className="loading loading-bars loading-xl"></span>
         ),
         element: <MyPlants />,
+      },
+
+      {
+        path: "all-plants",
+        loader: () => fetch("https://plant-tracker-server.vercel.app/plants"),
+        hydrateFallbackElement: (
+          <span className="loading loading-bars loading-xl"></span>
+        ),
+        element: <AllPlantDash></AllPlantDash>,
       },
     ],
   },
@@ -188,3 +182,22 @@ export default router;
 // https://plant-tracker-server.vercel.app
 
 // Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+// {
+//   path: "my-plants/:email",
+//   loader: async ({ params }) => {
+//     const res = await fetch(
+//       `https://plant-tracker-server.vercel.app/plants/${params.email}`
+//     );
+//     if (!res.ok) throw new Error("Failed to load plants");
+//     return res.json();
+//   },
+//   hydrateFallbackElement: (
+//     <span className="loading loading-bars loading-xl"></span>
+//   ),
+//   element: (
+//     <PrivateRoute>
+//       <MyPlants />
+//     </PrivateRoute>
+//   ),
+// },

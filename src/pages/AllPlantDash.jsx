@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useLoaderData } from "react-router";
 import PlantCard from "../components/PlantCard";
 
-const AllPlant = () => {
+const AllPlantDash = () => {
   const loadedPlants = useLoaderData();
   const [plants, setPlants] = useState([]);
   const [sortOption, setSortOption] = useState("");
@@ -34,9 +33,9 @@ const AllPlant = () => {
 
   return (
     <div>
-      <Navbar />
-
-      <h2 className="text-2xl mt-5 text-green-600 text-center font-bold">Here All Plants Data are showing</h2>
+      <h2 className="text-2xl mt-5 text-green-600 text-center font-bold">
+        Here All Plants Data are showing
+      </h2>
 
       {/* Filter Bar */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 px-6 mt-8">
@@ -69,13 +68,17 @@ const AllPlant = () => {
           <div className="hidden md:flex items-center gap-2">
             <label className="font-semibold">View:</label>
             <button
-              className={`btn btn-sm ${viewMode === "table" ? "btn-primary" : "btn-outline"}`}
+              className={`btn btn-sm ${
+                viewMode === "table" ? "btn-primary" : "btn-outline"
+              }`}
               onClick={() => setViewMode("table")}
             >
               Table
             </button>
             <button
-              className={`btn btn-sm ${viewMode === "card" ? "btn-primary" : "btn-outline"}`}
+              className={`btn btn-sm ${
+                viewMode === "card" ? "btn-primary" : "btn-outline"
+              }`}
               onClick={() => setViewMode("card")}
             >
               Card
@@ -150,4 +153,4 @@ const AllPlant = () => {
   );
 };
 
-export default AllPlant;
+export default AllPlantDash;
